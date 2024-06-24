@@ -33,7 +33,7 @@
   "GENDER": "FEMALE",
   "nickNameBot": "꧁𝑆ℎ𝑜𝑜𝑡𝑎𝐵𝑜𝑡꧂",
   "FACEBOOK": "https://www.facebook.com/PriyanshiKaurJi",
-  "prefix": ".",
+  "prefix": "/",
   "database": {
     "type": "sqlite",
     "uriMongodb": "",

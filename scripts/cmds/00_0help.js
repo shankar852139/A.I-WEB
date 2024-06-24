@@ -4,7 +4,7 @@ const axios = require("axios");
 const path = require("path");
 const { getPrefix } = global.utils;
 const { commands, aliases } = global.GoatBot;
-const doNotDelete = "⾕ | 𝙔𝘼𝙕𝙆𝙔 𝘼𝙄";
+const doNotDelete = "𝑷𝒓𝒊𝒚𝒂𝒏𝒔𝒉𝒊 𝑲𝒂𝒖𝒓";
 /** 
 * @author NTKhang
 * @author: do not delete it

@@ -17,12 +17,12 @@ module.exports = {
 	onStart: async function ({ api, event }) {
 		try {
 			const ownerInfo = {
-				name: '𝗖𝗟𝗜𝗙𝗙 𝗩𝗜𝗡𝗖𝗘𝗡𝗧',
-				gender: '𝗠𝗮𝗹𝗲',
-				hobby: '𝗖𝗼𝗱𝗲 𝗘𝘃𝗲𝗿𝘆𝗱𝗮𝘆',
-				Fb: 'https://facebook.com/swordigo.swordslush',
-				Relationship: '𝘄𝗶𝘁𝗵 𝗺𝘆 𝗰𝗮𝘁',
-				bio: '𝗗𝗶𝘀𝗰𝗼𝗻𝗻𝗲𝗰𝘁 𝗺𝗲 𝗳𝗿𝗼𝗺 𝘁𝗵𝗲 𝘄𝗼𝗿𝗹𝗱 𝗼𝗳 𝘁𝗲𝗰𝗵𝗻𝗼𝗹𝗼𝗴𝘆 𝗮𝗻𝗱 𝗶 𝘄𝗶𝗹𝗹 𝗯𝗲 𝘆𝗼𝘂𝗿 𝗴𝘂𝗶𝗱𝗲. 𝗜 𝘄𝗶𝗹𝗹 𝗵𝗲𝗹𝗽 𝘆𝗼𝘂 𝘁𝗼 𝗹𝗲𝗮𝗿𝗻 𝗮𝗻𝗱 𝗴𝗿𝗼𝘄. 𝗜 𝘄𝗶𝗹𝗹 𝗯𝗲 𝘆𝗼𝘂𝗿 𝗳𝗿𝗶𝗲𝗻𝗱 𝗮𝗻𝗱 𝗴𝘂𝗶𝗱𝗲 𝘆𝗼𝘂 𝘁𝗵𝗿𝗼𝘂𝗴𝗵 𝘁𝗵𝗲 𝗷𝗼𝘂𝗿𝗻𝗲𝘆 𝗼𝗳 𝗰𝗼𝗱𝗶𝗻𝗴'
+				name: '𝐏𝐫𝐢𝐲𝐚𝐧𝐬𝐡𝐢 𝐊𝐚𝐮𝐫',
+				gender: '𝐅𝐞𝐦𝐥𝐞',
+				hobby: '𝐆𝐮𝐧 𝐅𝐢𝐫𝐢𝐧𝐠 𝐀𝐧𝐝 𝐌𝐮𝐬𝐢𝐜',
+				Fb: 'https://facebook.com/PriyanshiKaurJi',
+				Relationship: '𝐂𝐫𝐮𝐬𝐡',
+				bio: '𝐖𝐨𝐫𝐥𝐝 𝐈𝐬 𝐅𝐮𝐥𝐥 𝐎𝐟 𝐖𝐨𝐧𝐝𝐞𝐫𝐬. 𝐑𝐢𝐠𝐡𝐭'
 			};
 
 			const bold = 'https://i.imgur.com/SyBjkss.mp4';

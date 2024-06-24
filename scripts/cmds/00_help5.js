@@ -61,7 +61,7 @@ module.exports = {
 			const totalCommands = commands.size;
 			msg += `\n𝗖𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆, 𝘁𝗵𝗲 𝗯𝗼𝘁 𝗵𝗮𝘀 ${totalCommands} 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝘁𝗵𝗮𝘁 𝗰𝗮𝗻 𝗯𝗲 𝘂𝘀𝗲𝗱\n`;
 			msg += `𝗧𝘆𝗽𝗲 ${prefix} 𝗵𝗲𝗹𝗽 𝗰𝗺𝗱𝗡𝗮𝗺𝗲 𝘁𝗼 𝘃𝗶𝗲𝘄 𝘁𝗵𝗲 𝗱𝗲𝘁𝗮𝗶𝗹𝘀 𝗼𝗳 𝘁𝗵𝗮𝘁 𝗰𝗼𝗺𝗺𝗮𝗻𝗱\n`;
-			msg += `YAZKY AI CHATBOT 💐`;
+			msg += `𝙿𝚛𝚒𝚢𝚊𝚗𝚜𝚑𝚒 𝙺𝚊𝚞𝚛'𝚜 𝚀𝚎𝚎𝚗𝙱𝚘𝚝`;
 
 
 			const helpListImages = [

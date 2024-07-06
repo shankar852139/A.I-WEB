@@ -18,10 +18,10 @@
   },
   "adminBot": [
     "61556609578687",
-    "",
-    "",
-    "",
-		""
+    "100037743553265",
+    "61560501479443",
+    "100057308119335",
+		"61557439091041"
   ],
   "whiteListMode": {
     "enable": false,
@@ -33,7 +33,7 @@
   "GENDER": "FEMALE",
   "nickNameBot": "꧁𝑄𝑢𝑒𝑒𝑛𝑃𝑟𝑜꧂",
   "FACEBOOK": "https://www.facebook.com/PriyanshiKaurJi",
-  "prefix": "/",
+  "prefix": ".",
   "database": {
     "type": "sqlite",
     "uriMongodb": "",

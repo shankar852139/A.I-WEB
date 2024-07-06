@@ -1,87 +1,112 @@
 module.exports = {
- config: {
- name: "sing",
- version: "1.0",
- role: 0,
- author: "kshitiz",
- cooldowns: 5,
- shortdescription: "download music from YouTube",
- longdescription: "",
- category: "music",
- usages: "{pn} music name",
- dependencies: {
- "fs-extra": "",
- "request": "",
- "axios": "",
- "ytdl-core": "",
- "yt-search": ""
- }
- },
+  config: {
+    name: "sing",
+    version: "10.5.1",
+    role: 0,
+    author: "Priyanshi Kaur || ArYAN", // don't change author credits.
+    countDown: 5,
+    shortDescription: "Play or Download Songs by Name or YouTube Link",
+    category: "media",
+    guide: {
+       en: "{p}sing <Song Name> | .sing <YouTube Song URL>",
+    },
+    dependencies: {
+      "fs-extra": "",
+      "axios": "",
+      "ytdl-core": "",
+      "yt-search": ""
+    }
+  },
 
- onStart: async ({ api, event }) => {
- const axios = require("axios");
- const fs = require("fs-extra");
- const ytdl = require("ytdl-core");
- const request = require("request");
- const yts = require("yt-search");
+  onStart: async ({ api, event }) => {
+    const axios = require("axios");
+    const fs = require("fs-extra");
+    const ytdl = require("ytdl-core");
+    const yts = require("yt-search");
 
- const input = event.body;
- const text = input.substring(12);
- const data = input.split(" ");
+    const input = event.body;
+    const text = input.substring(6).trim(); // Adjust if the command prefix is different
 
- if (data.length < 2) {
- return api.sendMessage("Please specify a music name.", event.threadID);
- }
+    if (!text) {
+      return api.sendMessage("Please provide a song name or a YouTube URL.", event.threadID);
+    }
 
- data.shift();
- const musicName = data.join(" ");
+    try {
+      api.sendMessage(`🌐 | Searching for "${text}".\n♻ | Please wait...🖤`, event.threadID, event.messageID);
 
- try {
- api.sendMessage(`✔ | Searching music for "${musicName}".\ ekxin parkhanuhos...`, event.threadID);
+      let songUrl;
+      let songTitle;
+      let songArtist;
+      let songDuration;
+      let songViews;
 
- const searchResults = await yts(musicName);
- if (!searchResults.videos.length) {
- return api.sendMessage("kunai music vetiyena.", event.threadID, event.messageID);
- }
+      if (ytdl.validateURL(text)) {
+        songUrl = text;
+        const info = await ytdl.getInfo(songUrl);
+        songTitle = info.videoDetails.title;
+        songArtist = info.videoDetails.author.name;
+        songDuration = info.videoDetails.lengthSeconds;
+        songViews = info.videoDetails.viewCount;
+      } else {
+        const searchResults = await yts(text);
+        const song = searchResults.videos.length > 0 ? searchResults.videos[0] : null;
 
- const music = searchResults.videos[0];
- const musicUrl = music.url;
+        if (!song) {
+          return api.sendMessage("Error: Song not found.", event.threadID);
+        }
 
- const stream = ytdl(musicUrl, { filter: "audioonly" });
+        songUrl = song.url;
+        songTitle = song.title;
+        songArtist = song.author.name;
+        songDuration = song.duration.seconds;
+        songViews = song.views;
+      }
 
- const fileName = `${event.senderID}.mp3`;
- const filePath = __dirname + `/cache/${fileName}`;
+      let lyrics = "Lyrics not found!";
+      try {
+        const lyricsResponse = await axios.get(`https://global-sprak.onrender.com/api/lyrics?songName=${encodeURIComponent(text)}`);
+        if (lyricsResponse.data.lyrics) {
+          lyrics = lyricsResponse.data.lyrics;
+        }
+      } catch (lyricsError) {
+        console.error('[ERROR fetching lyrics]', lyricsError);
+      }
 
- stream.pipe(fs.createWriteStream(filePath));
+      const stream = ytdl(songUrl, { filter: "audioonly" });
+      const fileExtension = 'mp3';
+      const fileName = `${event.senderID}.${fileExtension}`;
+      const filePath = __dirname + `/cache/${fileName}`;
+      stream.pipe(fs.createWriteStream(filePath));
 
- stream.on('response', () => {
- console.info('[DOWNLOADER]', 'Starting download now!');
- });
+      stream.on('response', () => {
+        console.info('[DOWNLOADER]', 'Starting download now!');
+      });
 
- stream.on('info', (info) => {
- console.info('[DOWNLOADER]', `Downloading music: ${info.videoDetails.title}`);
- });
+      stream.on('info', (info) => {
+        console.info('[DOWNLOADER]', `Downloading ${info.videoDetails.title} by ${info.videoDetails.author.name}`);
+      });
 
- stream.on('end', () => {
- console.info('[DOWNLOADER] Downloaded');
+      stream.on('end', async () => {
+        console.info('[DOWNLOADER] Downloaded');
 
- if (fs.statSync(filePath).size > 26214400) {
- fs.unlinkSync(filePath);
- return api.sendMessage('❌ | The file could not be sent because it is larger than 25MB.', event.threadID);
- }
+        if (fs.statSync(filePath).size > 26214400) { // 25 MB limit
+          fs.unlinkSync(filePath);
+          return api.sendMessage('[ERR] The file could not be sent because it is larger than 25MB.', event.threadID);
+        }
 
- const message = {
- body: `🙆‍♀️ ❀ tapaiko geet\ ❀ Title: ${music.title}\ Duration: ${music.duration.timestamp}`,
- attachment: fs.createReadStream(filePath)
- };
+        const message = {
+          body: `👑 𝗧𝗶𝘁𝗹𝗲: ${songTitle}\n🎩 𝗔𝗿𝘁𝗶𝘀𝘁: ${songArtist}\n⏰ 𝗗𝘂𝗿𝗮𝘁𝗶𝗼𝗻: ${Math.floor(songDuration / 60)}:${songDuration % 60}\n👀 𝗩𝗶𝗲𝘄𝘀: ${songViews}\n\n━━━━━━━━━━━━━\n🎶 𝗟𝗬𝗥𝗜𝗖𝗦\n${lyrics}`,
+          attachment: fs.createReadStream(filePath)
+        };
 
- api.sendMessage(message, event.threadID, () => {
- fs.unlinkSync(filePath);
- });
- });
- } catch (error) {
- console.error('[ERROR]', error);
- api.sendMessage('🥱 ❀ An error occurred while processing the command.', event.threadID);
- }
- }
+        api.sendMessage(message, event.threadID, () => {
+          fs.unlinkSync(filePath);
+        });
+      });
+
+    } catch (error) {
+      console.error('[ERROR]', error);
+      api.sendMessage('Please try again later. An error occurred.', event.threadID, event.messageID);
+    }
+  }
 };

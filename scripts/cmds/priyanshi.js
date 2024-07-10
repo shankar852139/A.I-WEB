@@ -1,8 +1,8 @@
-.cmd install priyanshi.js module.exports = {
+module.exports = {
  config: {
  name: "priyanshi",
  version: "1.0",
- author: "Unknøwn",
+ author: "Priyansh Rajput",
  countDown: 5,
  role: 0,
  shortDescription: "no prefix",
